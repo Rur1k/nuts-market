@@ -21,6 +21,17 @@ class Category(db.Model):
         return self.name
 
 
+class ProductStatus(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), nullable=False)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return self.name
+
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), nullable=True)
@@ -38,3 +49,4 @@ class User(db.Model):
     manager = db.Column(db.String(64), nullable=True)
     is_superuser = db.Column(db.Boolean, default=False)
     is_staff = db.Column(db.Boolean, default=False)
+

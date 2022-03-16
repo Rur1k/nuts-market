@@ -27,7 +27,7 @@ def registration():
             new_user = User(
                 full_name=full_name,
                 email=email,
-                password=password
+                password=generate_password_hash(password, method='sha256')
             )
 
             db.session.add(new_user)
