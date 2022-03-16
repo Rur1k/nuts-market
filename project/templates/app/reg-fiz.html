@@ -1,0 +1,336 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+
+<div class="container pr">
+	<div class="popup__cart">
+		<div class="wrap">
+			<div class="popup__cart_item">
+				<div class="row align-items-center no-gutters item_row">
+					<div class="col-md-5 col-12">
+						<div class="item_title">
+							<p>Орех соленый 80г.</p>
+						</div>
+					</div>
+					<div class="col-md-7 col-12">
+						<div class="row align-items-center no-gutters">
+							<div class="col-6">
+								<div class="item_quantity">
+									<button type="button" class="quantity_minus">
+										<i class="nut-icon icons-qty-left"></i>
+									</button>
+									<input type="text" name="quantity" value="4" class="quantity_input">
+									<button type="button" class="quantity_plus">
+										<i class="nut-icon icons-qty-right"></i>
+									</button>
+								</div>
+							</div>
+							<div class="col-5">
+								<div class="item_sum">
+									<p>100 <span>грн.</span></p>
+								</div>
+							</div>
+							<div class="col-1">
+								<div class="item_close">
+									<a href="#">
+										<i class="nut-icon icons-close-button"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="popup__cart_item">
+				<div class="row align-items-center no-gutters item_row">
+					<div class="col-md-5 col-12">
+						<div class="item_title">
+							<p>Орех сладкий 80г.</p>
+						</div>
+					</div>
+					<div class="col-md-7 col-12">
+						<div class="row align-items-center no-gutters">
+							<div class="col-6">
+								<div class="item_quantity">
+									<button type="button" class="quantity_minus">
+										<i class="nut-icon icons-qty-left"></i>
+									</button>
+									<input type="text" name="quantity" value="8" class="quantity_input">
+									<button type="button" class="quantity_plus">
+										<i class="nut-icon icons-qty-right"></i>
+									</button>
+								</div>
+							</div>
+							<div class="col-5">
+								<div class="item_sum">
+									<p>80 <span>грн.</span></p>
+								</div>
+							</div>
+							<div class="col-1">
+								<div class="item_close">
+									<a href="#">
+										<i class="nut-icon icons-close-button"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="popup__cart_sum">
+				<div class="sum_item">
+					<div class="sum_item_title">
+						<p>Всего </p>
+					</div>
+					<div class="sum_item_new">
+						<p>175 <i>грн.</i></p>
+					</div>
+				</div>
+				<div class="sum_item">
+					<div class="sum_item_button">
+						<a href="#" class="button">Перейти в корзину</a>
+					</div>
+				</div>
+			</div>
+			<!-- Если корзина пуста -->
+			<!-- <div class="popup__cart_clean">
+                <p>Ваша корзина пуста</p>
+            </div> -->
+		</div>
+	</div>
+</div>
+
+<section class="first-section no-bg">
+	<div class="container">
+		<div class="breadcrumbs">
+			<ul>
+				<li>
+					<a href="/">Главная</a>
+				</li>
+				<li>
+					Регистрация
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<section class="registration">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h1>Регистрация</h1>
+			</div>
+			<div class="col-12">
+				<div class="form__title">
+					1. Контактные данные
+				</div>
+			</div>
+			<div class="tabs">
+				<div class="row">
+					<div class="col-lg-5 col-md-6">
+						<div class="tabs__wrap">
+							<ul class="tabs__caption">
+								<li class="active">
+									Физическое лицо
+								</li>
+								<li>
+									Юридическое лицо
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-7 col-md-6"></div>
+				</div>
+				<div class="tabs__content active">
+					<form method="POST" action="{{ url_for('auth.registration') }}">
+						<div class="row">
+							<div class="col-lg-5 col-md-6">
+								<input type="text"  name="full_name" required="required" placeholder="ФИО*">
+								<input type="email" name="email" required="required" placeholder="Email*">
+								<input type="tel" name="phone" required="required" placeholder="Телефон*">
+								<div class="form__title">
+									2. Адрес
+								</div>
+								<select>
+									<option value="hide">Страна</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+								</select>
+								<select>
+									<option value="hide">Область</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+								</select>
+								<input type="text" required="required" placeholder="Город*">
+								<input type="text"  placeholder="Адрес">
+								<div class="form__title">
+									3. Пароль
+								</div>
+								<input type="password" name="password" required="required"  placeholder="Пароль*">
+								<input type="password" name="password_repeat" required="required"  placeholder="Подтвердите пароль*">
+							</div>
+							<div class="col-lg-5 col-md-6 offset-lg-1">
+								<div class="wrapper">
+									<div class="file__wrap">
+										<input type="file" name="file" id="file2" class="inputfile" />
+										<label for="file2"><span>Загрузить фото</span></label>
+									</div>
+									<div class="checkbox__wrap">
+										<input id="checkbox-1" class="checkbox-custom" name="checkbox-1" type="checkbox">
+										<label for="checkbox-1" class="checkbox-custom-label"><span>Являюсь ФОП</span></label>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-5 col-md-6">
+								<div class="checkbox__wrap">
+									<input id="checkbox-2" class="checkbox-custom" name="checkbox-1" type="checkbox">
+									<label for="checkbox-2" class="checkbox-custom-label"><span>Я согласен с <a href="#">Условиями регистрации</a></span></label>
+								</div>
+								<button class="button" type="submit">Продолжить</button>
+							</div>
+							<div class="col-lg-7 col-md-6"></div>
+						</div>
+					</form>
+				</div>
+				<div class="tabs__content">
+					<form action="#">
+						<div class="row">
+							<div class="col-lg-5 col-md-6">
+								<input type="text" required="required" placeholder="ФИО*">
+								<input type="email" required="required" placeholder="Email*">
+								<input type="tel" required="required" placeholder="Телефон*">
+								<div class="form__title">
+									2. Адрес
+								</div>
+								<select>
+									<option value="hide">Страна</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+								</select>
+								<select>
+									<option value="hide">Область</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+									<option value="lorem">lorem</option>
+								</select>
+								<input type="text" required="required" placeholder="Город*">
+								<input type="text"  placeholder="Адрес">
+								<div class="form__title">
+									3. Пароль
+								</div>
+								<input type="password" required="required"  placeholder="Пароль*">
+								<input type="password" required="required"  placeholder="Подтвердите пароль*">
+							</div>
+							<div class="col-lg-5 col-md-6 offset-lg-1">
+								<div class="wrapper">
+									<div class="file__wrap">
+										<input type="file" name="file" id="file" class="inputfile" />
+										<label for="file"><span>Загрузить фото</span></label>
+									</div>
+									<div class="radio__wrap">
+										<input id="radio-1" class="radio-custom" name="radio-group" value="ur" type="radio" checked>
+										<label for="radio-1" class="radio-custom-label"><span>Юр. лицо</span></label>
+										<input id="radio-2" class="radio-custom" name="radio-group" value="fop" type="radio">
+										<label for="radio-2" class="radio-custom-label"><span>ФОП</span></label>
+									</div>
+									<div class="box-wrap">
+										<div class="ur box">
+											<div class="form__title">
+												1. Реквизиты
+											</div>
+											<input type="text"  placeholder="ОКПО">
+											<div class="form__title">
+												2. Юридический адрес
+											</div>
+											<select>
+												<option value="hide">Страна</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+											</select>
+											<select>
+												<option value="hide">Область</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+											</select>
+											<input type="text" required="required" placeholder="Город*">
+											<input type="text"  placeholder="Адрес">
+											<input type="text"  placeholder="Индекс">
+										</div>
+										<div class="fop box">
+											<div class="form__title">
+												1. Реквизиты
+											</div>
+											<input type="text"  placeholder="ЕДРПО">
+											<div class="form__title">
+												2. Адрес ФОП
+											</div>
+											<select>
+												<option value="hide">Страна</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+											</select>
+											<select>
+												<option value="hide">Область</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+												<option value="lorem">lorem</option>
+											</select>
+											<input type="text" required="required" placeholder="Город*">
+											<input type="text"  placeholder="Адрес">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-5 col-md-6">
+								<div class="checkbox__wrap">
+									<input id="checkbox-4" class="checkbox-custom" name="checkbox-1" type="checkbox">
+									<label for="checkbox-4" class="checkbox-custom-label"><span>Я согласен с <a href="#">Условиями регистрации</a></span></label>
+								</div>
+								<button class="button" type="submit">Продолжить</button>
+							</div>
+							<div class="col-lg-7 col-md-6"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endblock %}
+
+
+
