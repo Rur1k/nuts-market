@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from .models import User
 from . import db
@@ -6,9 +6,9 @@ from . import db
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/login')
+@auth.route('/login', methods=['POST', 'GET'])
 def login():
-    return "Login"
+    return render_template('app/enter.html')
 
 
 @auth.route('/registration', methods=['POST', 'GET'])
@@ -32,7 +32,7 @@ def registration():
 
             db.session.add(new_user)
             db.session.commit()
-            return redirect(url_for('main.index'))
+            return redirect(url_for('auth.login'))
     else:
         return render_template('app/reg-fiz.html')
 

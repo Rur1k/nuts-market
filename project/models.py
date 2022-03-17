@@ -6,6 +6,7 @@
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nuts_admin:admin@127.0.0.1:5432/nuts_market_db'
 # db = SQLAlchemy(app)
 # migrate = Migrate(app, db)
+from flask_image_alchemy.fields import StdImageField
 
 from . import db
 
@@ -49,4 +50,4 @@ class User(db.Model):
     manager = db.Column(db.String(64), nullable=True)
     is_superuser = db.Column(db.Boolean, default=False)
     is_staff = db.Column(db.Boolean, default=False)
-
+    avatar = db.Column(StdImageField(storage=))
