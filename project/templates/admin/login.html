@@ -35,24 +35,30 @@
 
 <body class="login-page" style="height: auto; min-height: 100%">
 <div class="login-box">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
     <div class="nav-tabs-custom">
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
                 <div class="login-box-body">
-
                     <div id="preloader"></div>
-
-                    <p class="login-box-msg">Вход в панель управления</p>
+                    <p class="login-box-msg">Вход в панель управления </p>
 
                     <form id="login-form" action="" method="post">
+                        {{ form.csrf_token() }}
                         <div class="form-group has-feedback field-loginform-username required">
-                            <input type="text" class="form-control"><span class='fa fa-envelope form-control-feedback'></span>
+                            {{ form.email }}<span class='fa fa-envelope form-control-feedback'></span>
                         </div>
                         <div class="form-group has-feedback field-loginform-password required">
-                            <input type="text" class="form-control"><span class='fa fa-lock form-control-feedback'></span>
+                            {{ form.password }}<span class='fa fa-lock form-control-feedback'></span>
                         </div>
                         <div class="form-group has-feedback field-loginform-remember-me required">
-                            <input type="checkbox" class=""><span> Запомнить меня</span>
+                            {{ form.remember }}<span> Запомнить меня</span>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">

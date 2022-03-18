@@ -1,12 +1,4 @@
-# from flask import Flask
-# from flask_sqlalchemy import SQLAlchemy
-# from flask_migrate import Migrate
-#
-# app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nuts_admin:admin@127.0.0.1:5432/nuts_market_db'
-# db = SQLAlchemy(app)
-# migrate = Migrate(app, db)
-
+from flask_login import UserMixin
 from . import db
 
 
@@ -32,7 +24,7 @@ class ProductStatus(db.Model):
         return self.name
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), nullable=True)
     email = db.Column(db.String(128), unique=True)
