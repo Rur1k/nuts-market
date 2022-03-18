@@ -13,7 +13,7 @@ db = SQLAlchemy()
 
 migrate = Migrate()
 
-MEDIA_PATH = "static/images/"
+UPLOAD_FOLDER = '/static/img/app'
 
 
 def create_app():
@@ -22,6 +22,7 @@ def create_app():
     app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nuts_admin:admin@127.0.0.1:5432/nuts_market_db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     db.init_app(app)
     migrate.init_app(app, db)
@@ -35,3 +36,7 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
+
+
+def pathSave(filename):
+    return os.path.join(create_app().config['UPLOAD_FOLDER'], filename)

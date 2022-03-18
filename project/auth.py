@@ -1,7 +1,11 @@
+import os
+
 from flask import Blueprint, render_template, redirect, url_for, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+
 from .models import User
-from . import db
+from . import db, pathSave
 
 auth = Blueprint('auth', __name__)
 
@@ -24,10 +28,18 @@ def registration():
         if user:
             return redirect(url_for('auth.registration'))
         else:
+            file = request.files['file']
+            if file:
+                filename = secure_filename(file.filename)
+                file.save(pathSave(filename))
+            else:
+                filename = None
+
             new_user = User(
                 full_name=full_name,
                 email=email,
-                password=generate_password_hash(password, method='sha256')
+                password=generate_password_hash(password, method='sha256'),
+                avatar=filename
             )
 
             db.session.add(new_user)
