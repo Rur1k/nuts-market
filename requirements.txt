@@ -11,3 +11,4 @@ Flask-Login
 Flask-ImageAlchemy
 flask-wtf
 wtforms[email]
+WTForms-Alchemy

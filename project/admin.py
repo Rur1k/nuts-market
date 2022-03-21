@@ -3,8 +3,8 @@ from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
-from .models import User
-from .forms import AdminLoginForm
+from .models import User, Product
+from .forms import AdminLoginForm, ProductForm
 from . import db
 
 admin = Blueprint('admin', __name__)
@@ -45,3 +45,30 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('admin.login'))
+
+
+# product views
+
+@admin.route('/admin/product')
+@login_required
+def product():
+    data = {
+        'product_list': Product.query.all()
+    }
+    return render_template('admin/product/index.html', data=data)
+
+
+@admin.route('/admin/product/create', methods=['POST', 'GET'])
+@login_required
+def product_create():
+    if request.method == 'POST':
+        form = ProductForm(request.form)
+        flash(str(request.form))
+        print(form.validate())
+        if form.validate():
+            pass
+        else:
+            pass
+    else:
+        form = ProductForm()
+    return render_template('admin/product/create.html', form=form)

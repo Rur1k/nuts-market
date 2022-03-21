@@ -92,13 +92,13 @@
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu" data-widget="tree">
                         <li >
-                            <a href="#">
+                            <a href="{{ url_for('admin.statistic') }}">
                                 <i class="fa fa-line-chart"></i>
                                 <span>Статистика</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ url_for('admin.product') }}">
                                 <i class="fa fa-shopping-cart"></i>
                                 <span>Товары</span>
                             </a>
@@ -164,7 +164,7 @@
                     {% block page_name %}Название блока{% endblock %}
                   </h1>
                   <ol class="breadcrumb">
-                    <li><a href=""><i class="fa fa-home"></i> Главная</a></li>
+                    <li><a href="{{ url_for('admin.statistic') }}"><i class="fa fa-home"></i> Главная</a></li>
                     {% block mini_page_name %}{% endblock %}
                   </ol>
                 </section>

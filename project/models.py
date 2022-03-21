@@ -1,7 +1,9 @@
 from flask_login import UserMixin
+from sqlalchemy_utils import ChoiceType
+
 from . import db
 
-
+# Product models
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
@@ -23,6 +25,30 @@ class ProductStatus(db.Model):
     def __repr__(self):
         return self.name
 
+
+class Product(db.Model):
+    __tablename__ = 'products'
+    STATUS = [
+        ('Новое', 'Новое'),
+        ('В наличии', 'В наличии')
+    ]
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    vendor_code = db.Column(db.String(255), nullable=True)
+    category = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+    composition = db.Column(db.String(255), nullable=True)
+    net_weight = db.Column(db.Integer, nullable=True)
+    energy_value = db.Column(db.Integer, nullable=True)
+    expiration_date = db.Column(db.String(255), nullable=True)
+    price = db.Column(db.Float, default=0.0)
+    description = db.Column(db.String(255), nullable=True)
+    main_picture = db.Column(db.String(255), nullable=True)
+    count = db.Column(db.Integer, default=0)
+    status = db.Column(ChoiceType(STATUS, impl=db.String()))
+
+
+# User models
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)

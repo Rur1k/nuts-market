@@ -1,0 +1,84 @@
+{% extends 'admin/base.html' %}
+{% block title %}Добавление товара{% endblock %}
+{% block page_name %}Добавление товара{% endblock %}
+{% block mini_page_name %}
+    <li class="active">
+        <a href="{{ url_for('admin.product') }}">Товары</a>
+    </li>
+    <li class="active">Добавление</li>
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+<form id="ProductCreateForm" novalidate method="post" action="" enctype="multipart/form-data">
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Название</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Артикул</label>
+                        {{ form.vendor_code }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Категория</label>
+                        {{ form.category }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Состав</label>
+                        {{ form.composition }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Масса Нетто</label>
+                        {{ form.net_weight }}
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Енергетическая ценность</label>
+                        {{ form.energy_value }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Срок годности</label>
+                        {{ form.expiration_date }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Цена</label>
+                        {{ form.price }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Описание</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Статус</label>
+                        {{ form.status }}
+                    </div>
+                </div>
+                <div class="col-md-12 margin-bottom-20">
+                    <label>Главное изображение</label>
+                        {{ form.main_picture }}
+                </div>
+                <div class="col-md-12 text-right">
+                    <div class="form-group">
+                        <a href="{{ url_for('admin.product') }}" class="btn btn-default">Отменить</a>
+                        <button type="submit" name="save" class="btn btn-success">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
