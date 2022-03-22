@@ -1,11 +1,14 @@
 {% extends 'admin/base.html' %}
-{% block title %}Добавление товара{% endblock %}
-{% block page_name %}Добавление товара{% endblock %}
+{% block title %}Обновление товара{% endblock %}
+{% block page_name %}Обновление товара {{ form.name.data }}{% endblock %}
 {% block mini_page_name %}
-    <li class="active">
+    <li>
         <a href="{{ url_for('admin.product') }}">Товары</a>
     </li>
-    <li class="active">Добавление</li>
+    <li>
+        <a href="{{ url_for('admin.product_info', id=id) }}">{{ form.name.data }}</a>
+    </li>
+    <li class="active">Обновление</li>
 {% endblock %}
 
 {% block content %}

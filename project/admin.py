@@ -87,3 +87,56 @@ def product_create():
     else:
         form = ProductForm()
     return render_template('admin/product/create.html', form=form)
+
+
+@admin.route('/admin/product/<int:id>', methods=['GET'])
+@login_required
+def product_info(id):
+    data = {
+        'product': Product.query.filter_by(id=id).first_or_404()
+    }
+    return render_template('admin/product/info.html', data=data)
+
+
+@admin.route('/admin/product/<int:id>/update', methods=['POST', 'GET'])
+@login_required
+def product_update(id):
+    product_information = Product.query.filter_by(id=id).first_or_404()
+
+    if request.method == 'POST':
+        form = ProductForm(request.form)
+        if form.validate():
+            product_information.name=form.name.data
+            product_information.vendor_code=form.vendor_code.data
+            product_information.category=form.category.data
+            product_information.composition=form.composition.data
+            product_information.net_weight=form.net_weight.data
+            product_information.energy_value=form.energy_value.data
+            product_information.expiration_date=form.expiration_date.data
+            product_information.price=form.price.data
+            product_information.description=form.description.data
+            product_information.status=form.status.data
+
+            db.session.commit()
+
+            flash('Товар успешно обновлен!')
+            return redirect(url_for('admin.product_info', id=product_information.id))
+        else:
+            flash('Упс, а валидация то не пройдена!')
+    else:
+        form = ProductForm(obj=product_information)
+    return render_template('admin/product/update.html', form=form, id=product_information.id)
+
+
+@admin.route('/admin/product/<int:id>/delete')
+@login_required
+def product_delete(id):
+    obj = Product.query.get_or_404(id)
+
+    try:
+        db.session.delete(obj)
+        db.session.commit()
+        flash('Удаление прошло успешно!')
+    except:
+        flash('Упс, что-то пошло не так!')
+    return redirect(url_for('admin.product'))

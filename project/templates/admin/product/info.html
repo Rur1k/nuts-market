@@ -1,22 +1,87 @@
 {% extends 'admin/base.html' %}
-{% block title %}Добавление товара{% endblock %}
-{% block page_name %}Добавление товара{% endblock %}
+{% block title %}Информация о товаре{% endblock %}
+{% block page_name %}Информация о товаре{% endblock %}
 {% block mini_page_name %}
     <li class="active">
         <a href="{{ url_for('admin.product') }}">Товары</a>
     </li>
-    <li class="active">Добавление</li>
+    <li class="active">Информация о товаре</li>
 {% endblock %}
 
 {% block content %}
 
 {% with messages = get_flashed_messages() %}
 {% if messages %}
-    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+    <div class="alert alert-success alert-dismissible text-center" role="alert">
         {{ messages[0] }}
     </div>
 {% endif %}
 {% endwith %}
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="box">
+            <div class="box-header with-border text-right">
+                <a href="{{ url_for('admin.product_update', id=data.product.id) }}" class="btn btn-primary">Редактировать</a>
+            </div>
+            <div class="box-body row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-bordered">
+                        <tbody>
+                        <tr>
+                            <th class="col-md-6">Название</th>
+                            <td>{{ data.product.name }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Артикул</th>
+                            <td>{{ data.product.vendor_code }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Категория</th>
+                            <td>{{ data.product.category }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Состав</th>
+                            <td>{{ data.product.composition }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Масса нетто(г)</th>
+                            <td>{{ data.product.net_weight }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Енергетическая ценность(ккал):</th>
+                            <td>{{ data.product.energy_value }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Срок годности</th>
+                            <td>{{ data.product.expiration_date }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Цена(грн)</th>
+                            <td>{{ data.product.price }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Описание</th>
+                            <td>{{ data.product.description }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Главное изображение</th>
+                            <td>{{ data.product.main_picture }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Остаток на складе</th>
+                            <td>{{ data.product.count }}</td>
+                        </tr>
+                        <tr>
+                            <th class="col-md-6">Статус</th>
+                            <td>{{ data.product.status }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

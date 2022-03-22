@@ -40,7 +40,7 @@
             </thead>
             <tbody>
             {% for product in data.product_list %}
-            <tr onclick="location.href='{{ url_for('admin.product') }}'" class="table-data">
+            <tr onclick="location.href='{{ url_for('admin.product_info', id=product.id) }}'" class="table-data">
                 <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.category }}</td>
@@ -53,10 +53,10 @@
                         <a class="btn btn-default btn-sm" href="" title="Пополнить склад" data-toggle="tooltip">
                             <i class="fa fa-shopping-cart"></i>
                         </a>
-                        <a class="btn btn-default btn-sm" href="" title="Редактировать" data-toggle="tooltip">
+                        <a class="btn btn-default btn-sm" href="{{ url_for('admin.product_update', id=product.id) }}" title="Редактировать" data-toggle="tooltip">
                             <i class="fa fa-pencil"></i>
                         </a>
-                        <a class="btn btn-default btn-sm" href="" onclick="return confirmDelete()" title="Удалить" data-toggle="tooltip">
+                        <a class="btn btn-default btn-sm" href="{{ url_for('admin.product_delete', id=product.id) }}" onclick="return confirmDelete()" title="Удалить" data-toggle="tooltip">
                             <i class="fa fa-trash"></i>
                         </a>
                     </div>
