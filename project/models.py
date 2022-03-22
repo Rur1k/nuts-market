@@ -4,28 +4,6 @@ from sqlalchemy_utils import ChoiceType
 from . import db
 
 # Product models
-class Category(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False)
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return self.name
-
-
-class ProductStatus(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64), nullable=False)
-
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return self.name
-
-
 class Product(db.Model):
     __tablename__ = 'products'
     STATUS = [
@@ -33,10 +11,19 @@ class Product(db.Model):
         ('В наличии', 'В наличии')
     ]
 
+    CATEGORY = [
+        ('Другое', 'Другое'),
+        ('Грецкий орех', 'Грецкий орех'),
+        ('Фундук', 'Фундук'),
+        ('Кешью', 'Кешью'),
+        ('Арахис', 'Арахис'),
+        ('Миндаль', 'Миндаль')
+    ]
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     vendor_code = db.Column(db.String(255), nullable=True)
-    category = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+    category = db.Column(ChoiceType(CATEGORY, impl=db.String()))
     composition = db.Column(db.String(255), nullable=True)
     net_weight = db.Column(db.Integer, nullable=True)
     energy_value = db.Column(db.Integer, nullable=True)

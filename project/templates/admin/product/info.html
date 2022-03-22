@@ -1,0 +1,22 @@
+{% extends 'admin/base.html' %}
+{% block title %}Добавление товара{% endblock %}
+{% block page_name %}Добавление товара{% endblock %}
+{% block mini_page_name %}
+    <li class="active">
+        <a href="{{ url_for('admin.product') }}">Товары</a>
+    </li>
+    <li class="active">Добавление</li>
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+
+{% endblock %}

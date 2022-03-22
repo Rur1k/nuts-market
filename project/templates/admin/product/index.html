@@ -7,7 +7,7 @@
 {% block content %}
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+    <div class="alert alert-success alert-dismissible text-center" role="alert">
         {{ messages[0] }}
     </div>
     {% endif %}
@@ -46,11 +46,12 @@
                 <td>{{ product.category }}</td>
                 <td>{{ product.count }}</td>
                 <td>{{ product.net_weight }}</td>
-                <td>{{ product.status_product }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.status }}</td>
                 <td class="text-center">
                     <div class="btn-group pull-center">
-                        <a class="btn btn-default btn-sm" href="" title="Редактировать" data-toggle="tooltip">
-                            <i class="fa fa-pencil"></i>
+                        <a class="btn btn-default btn-sm" href="" title="Пополнить склад" data-toggle="tooltip">
+                            <i class="fa fa-shopping-cart"></i>
                         </a>
                         <a class="btn btn-default btn-sm" href="" title="Редактировать" data-toggle="tooltip">
                             <i class="fa fa-pencil"></i>

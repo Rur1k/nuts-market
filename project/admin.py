@@ -63,12 +63,27 @@ def product():
 def product_create():
     if request.method == 'POST':
         form = ProductForm(request.form)
-        flash(str(request.form))
-        print(form.validate())
         if form.validate():
-            pass
+            new_product = Product(
+                name=form.name.data,
+                vendor_code=form.vendor_code.data,
+                category=form.category.data,
+                composition=form.composition.data,
+                net_weight=form.net_weight.data,
+                energy_value=form.energy_value.data,
+                expiration_date=form.expiration_date.data,
+                price=form.price.data,
+                description=form.description.data,
+                status=form.status.data,
+            )
+
+            db.session.add(new_product)
+            db.session.commit()
+
+            flash('Товар успешно добавлен!')
+            return redirect(url_for('admin.product'))
         else:
-            pass
+            flash('Упс, а валидация то не пройдена!')
     else:
         form = ProductForm()
     return render_template('admin/product/create.html', form=form)

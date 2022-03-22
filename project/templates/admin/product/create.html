@@ -25,55 +25,55 @@
                 <div class="col-md-6">
                     <div class="col-md-12 margin-bottom-20">
                         <label>Название</label>
-                        {{ form.name }}
+                        {{ form.name(class='form-control') }}
                     </div>
                     <div class="col-md-12 margin-bottom-20">
                         <label>Артикул</label>
-                        {{ form.vendor_code }}
+                        {{ form.vendor_code(class='form-control') }}
                     </div>
                     <div class="col-md-12 margin-bottom-20">
                         <label>Категория</label>
-                        {{ form.category }}
+                        {{ form.category(class='form-control') }}
                     </div>
                     <div class="col-md-12 margin-bottom-20">
                         <label>Состав</label>
-                        {{ form.composition }}
+                        {{ form.composition(class='form-control') }}
                     </div>
                     <div class="col-md-12 margin-bottom-20">
                         <label>Масса Нетто</label>
-                        {{ form.net_weight }}
+                        {{ form.net_weight(class='form-control') }}
                     </div>
                 </div>
                 <div class="col-md-6 form-group">
                     <div class="col-md-12 margin-bottom-20">
                         <label>Енергетическая ценность</label>
-                        {{ form.energy_value }}
+                        {{ form.energy_value(class='form-control') }}
                     </div>
                     <div class="col-md-12 margin-bottom-20">
                         <label>Срок годности</label>
-                        {{ form.expiration_date }}
+                        {{ form.expiration_date(class='form-control') }}
                     </div>
                     <div class="col-md-12 margin-bottom-20">
                         <label>Цена</label>
-                        {{ form.price }}
+                        {{ form.price(class='form-control') }}
                     </div>
                     <div class="col-md-12 margin-bottom-20">
                         <label>Описание</label>
-                        {{ form.description }}
+                        {{ form.description(class='form-control', style="resize: none") }}
                     </div>
                     <div class="col-md-12 margin-bottom-20">
                         <label>Статус</label>
-                        {{ form.status }}
+                        {{ form.status(class='form-control') }}
                     </div>
                 </div>
                 <div class="col-md-12 margin-bottom-20">
                     <label>Главное изображение</label>
-                        {{ form.main_picture }}
+                        {{ form.main_picture(type='file') }}
                 </div>
                 <div class="col-md-12 text-right">
                     <div class="form-group">
                         <a href="{{ url_for('admin.product') }}" class="btn btn-default">Отменить</a>
-                        <button type="submit" name="save" class="btn btn-success">Сохранить</button>
+                        <button type="submit" name="save" class="btn btn-primary">Сохранить</button>
                     </div>
                 </div>
             </div>
