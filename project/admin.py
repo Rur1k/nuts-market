@@ -140,3 +140,33 @@ def product_delete(id):
     except:
         flash('Упс, что-то пошло не так!')
     return redirect(url_for('admin.product'))
+
+
+@admin.route('/admin/product/<int:id>/edit_count', methods=['POST', 'GET'])
+@login_required
+def product_edit_count(id):
+    product_information = Product.query.filter_by(id=id).first_or_404()
+
+    if request.method == 'POST':
+        form = request.form
+        print(form.get('edit_option'))
+
+        if form.get('edit_option') == "add":
+            product_information.count = product_information.count + int(form.get('count_product'))
+            db.session.commit()
+            flash('Склад успешно обновлен!')
+            return redirect(url_for('admin.product_info', id=product_information.id))
+        elif form.get('edit_option') == "take":
+            count = product_information.count - int(form.get('count_product'))
+            if count < 0:
+                flash('Состояние склада не может быть отрицательным!')
+                return redirect(url_for('admin.product_edit_count', id=product_information.id))
+            else:
+                product_information.count = count
+                db.session.commit()
+                flash('Склад успешно обновлен!')
+                return redirect(url_for('admin.product_info', id=product_information.id))
+    else:
+        form = ProductForm(obj=product_information)
+    form = ProductForm(obj=product_information)
+    return render_template('admin/product/edit_count.html', form=form, id=product_information.id)

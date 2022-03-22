@@ -22,6 +22,7 @@
     <div class="col-md-12">
         <div class="box">
             <div class="box-header with-border text-right">
+                <a href="{{ url_for('admin.product_edit_count', id=data.product.id) }}" class="btn btn-default">Управление складом</a>
                 <a href="{{ url_for('admin.product_update', id=data.product.id) }}" class="btn btn-primary">Редактировать</a>
             </div>
             <div class="box-body row">

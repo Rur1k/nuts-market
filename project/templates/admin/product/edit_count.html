@@ -1,0 +1,55 @@
+{% extends 'admin/base.html' %}
+{% block title %}Обновление склада{% endblock %}
+{% block page_name %}Обновление склада: {{ form.name.data }}{% endblock %}
+{% block mini_page_name %}
+    <li>
+        <a href="{{ url_for('admin.product') }}">Товары</a>
+    </li>
+    <li>
+        <a href="{{ url_for('admin.product_info', id=id) }}">{{ form.name.data }}</a>
+    </li>
+    <li class="active">Обновление склада</li>
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+<form id="ProductCreateForm" novalidate method="post" action="" enctype="multipart/form-data">
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>В наличии на складе: {{ form.count.data }}</h3>
+                </div>
+                <div class="col-md-6 form-group">
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Управление</label>
+                        <select name="edit_option" class="form-control">
+                            <option value="add">Добавить</option>
+                            <option value="take">Отнять</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Количество едениц</label>
+                        <input name="count_product" class="form-control" type="number" step="1">
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div class="form-group">
+                        <a href="{{ url_for('admin.product') }}" class="btn btn-default">Отменить</a>
+                        <button type="submit" name="save" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

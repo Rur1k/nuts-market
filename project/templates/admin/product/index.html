@@ -50,7 +50,7 @@
                 <td>{{ product.status }}</td>
                 <td class="text-center">
                     <div class="btn-group pull-center">
-                        <a class="btn btn-default btn-sm" href="" title="Пополнить склад" data-toggle="tooltip">
+                        <a class="btn btn-default btn-sm" href="{{ url_for('admin.product_edit_count', id=product.id) }}" title="Управление складом" data-toggle="tooltip">
                             <i class="fa fa-shopping-cart"></i>
                         </a>
                         <a class="btn btn-default btn-sm" href="{{ url_for('admin.product_update', id=product.id) }}" title="Редактировать" data-toggle="tooltip">
