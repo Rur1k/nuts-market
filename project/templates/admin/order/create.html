@@ -1,0 +1,134 @@
+{% extends 'admin/base.html' %}
+{% block title %}Создание заказа{% endblock %}
+{% block page_name %}Создание заказа{% endblock %}
+{% block mini_page_name %}
+    <li>
+        <a href="{{ url_for('admin.order') }}">Заказы</a>
+    </li>
+    <li class="active">Создание</li>
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    <div class="alert alert-danger alert-dismissible text-center" role="alert">
+        {{ messages[0] }}
+    </div>
+{% endif %}
+{% endwith %}
+
+<form id="OrderCreateForm" novalidate method="post" action="" enctype="multipart/form-data">
+    <div class="box">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Пользователь</label>
+                        {{ form.user(class='form-control') }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>ФИО</label>
+                        {{ form.full_name(class='form-control') }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Email</label>
+                        {{ form.email(class='form-control') }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Номер</label>
+                        {{ form.phone(class='form-control') }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Доставка</label>
+                        {{ form.delivery(class='form-control') }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Город</label>
+                        {{ form.city(class='form-control') }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Отделение</label>
+                        {{ form.department(class='form-control') }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Оплата</label>
+                        {{ form.buy(class='form-control') }}
+                    </div>
+                </div>
+                <div class="col-md-12 margin-bottom-20">
+                     <table class="table">
+                    <theader>
+                        <tr>
+                            <th scope="col">Товар</th>
+                            <th scope="col">Кол-во</th>
+                            <th scope="col">Цена за ед</th>
+                            <th scope="col">Стоимость, грн</th>
+                            <th scope="col"></th>
+                            <th scope="col" style="width: 10px;"></th>
+                        </tr>
+                    </theader>
+                    <tbody>
+                        <tr class="form-service-invoice">
+                            <td scope="row">Товар 1</td>
+                            <td scope="row">1</td>
+                            <td scope="row">100</td>
+                            <td scope="row">100</td>
+                            <td scope="row"></td>
+                            <td scope="row">
+                                <button class="btn btn-default btn-sm" title="Удалить">
+                                    <i class="fa fa-trash">
+                                        <div hidden="hidden">
+
+                                        </div>
+                                    </i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <div hidden="hidden"></div>
+                                <button id="add_service_is_invoice" type="button" class="btn btn-default btn-hover-change">Добавить позицию</button>
+                            </td>
+                            <td scope="row">
+                                <h4>Итоги: <span id="invoice-total-sum"></span> грн.</h4>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Статус заказа</label>
+                        {{ form.status(class='form-control') }}
+                    </div>
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Примечание</label>
+                        {{ form.description(class='form-control') }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12 margin-bottom-20">
+                        <label>Менеджер</label>
+                        {{ form.manager(class='form-control') }}
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <div class="form-group">
+                        <a href="{{ url_for('admin.order') }}" class="btn btn-default">Отменить</a>
+                        <button type="submit" name="save" class="btn btn-primary">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}

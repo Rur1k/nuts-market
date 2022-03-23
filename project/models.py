@@ -56,3 +56,48 @@ class User(UserMixin, db.Model):
     is_superuser = db.Column(db.Boolean, default=False)
     is_staff = db.Column(db.Boolean, default=False)
     avatar = db.Column(db.String(), nullable=True)
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return self.full_name
+
+
+# Order models
+class Order(db.Model):
+    __tablename__ = 'orders'
+    STATUS = [
+        ('Новое', 'Новое'),
+        ('Отказ', 'Отказ'),
+        ('Формируеться', 'Формируеться'),
+        ('Ожидает подтверждения', 'Ожидает подтверждения'),
+        ('Подтвержден', 'Подтвержден')
+    ]
+
+    BUY = [
+        ('Безналичный расчет', 'Безналичный расчет'),
+        ('LiqPay/Приват24', 'LiqPay/Приват24'),
+        ('Наличкой при получении', 'Наличкой при получении'),
+    ]
+
+    DELIVERY = [
+        ('Новая почта', 'Новая почта'),
+        ('Курьер по Одессе', 'Курьер по Одессе'),
+        ('Самовывоз со склада', 'Самовывоз со склада'),
+    ]
+
+    number = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date)
+    user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    full_name = db.Column(db.String(255), nullable=True)
+    email = db.Column(db.String(255), nullable=True)
+    phone = db.Column(db.String(255), nullable=True)
+    buy = db.Column(ChoiceType(BUY, impl=db.String()))
+    delivery = db.Column(ChoiceType(DELIVERY, impl=db.String()))
+    city = db.Column(db.String(255), nullable=True)
+    department = db.Column(db.String(255), nullable=True)
+    status = db.Column(ChoiceType(STATUS, impl=db.String()))
+    manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    description = db.Column(db.String(255), nullable=True)
+    sum = db.Column(db.Float, default=0.0)

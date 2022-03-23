@@ -3,8 +3,8 @@ from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
-from .models import User, Product
-from .forms import AdminLoginForm, ProductForm
+from .models import User, Product, Order
+from .forms import AdminLoginForm, ProductForm, OrderForm
 from . import db
 
 admin = Blueprint('admin', __name__)
@@ -170,3 +170,100 @@ def product_edit_count(id):
         form = ProductForm(obj=product_information)
     form = ProductForm(obj=product_information)
     return render_template('admin/product/edit_count.html', form=form, id=product_information.id)
+
+
+# order views
+
+@admin.route('/admin/order')
+@login_required
+def order():
+    data = {
+        'orders': Order.query.all()
+    }
+    return render_template('admin/order/index.html', data=data)
+
+
+@admin.route('/admin/order/create', methods=['POST', 'GET'])
+@login_required
+def order_create():
+    if request.method == 'POST':
+        form = OrderForm(request.form)
+        if form.validate():
+            new_obj = Product(
+                name=form.name.data,
+                vendor_code=form.vendor_code.data,
+                category=form.category.data,
+                composition=form.composition.data,
+                net_weight=form.net_weight.data,
+                energy_value=form.energy_value.data,
+                expiration_date=form.expiration_date.data,
+                price=form.price.data,
+                description=form.description.data,
+                status=form.status.data,
+            )
+
+            db.session.add(new_obj)
+            db.session.commit()
+
+            flash('Заказ успешно создан!')
+            return redirect(url_for('admin.order'))
+        else:
+            flash('Упс, а валидация то не пройдена!')
+    else:
+        form = OrderForm()
+        form.user.choices = [((obj.id, obj.full_name)) for obj in User.query.filter_by(is_staff=False)]
+        form.manager.choices = [((obj.id, obj.full_name)) for obj in User.query.filter_by(is_staff=True)]
+    return render_template('admin/order/create.html', form=form)
+
+
+@admin.route('/admin/order/<int:id>', methods=['GET'])
+@login_required
+def order_info(id):
+    data = {
+        'product': Product.query.filter_by(id=id).first_or_404()
+    }
+    return render_template('admin/product/info.html', data=data)
+
+
+@admin.route('/admin/order/<int:id>/update', methods=['POST', 'GET'])
+@login_required
+def order_update(id):
+    product_information = Product.query.filter_by(id=id).first_or_404()
+
+    if request.method == 'POST':
+        form = ProductForm(request.form)
+        if form.validate():
+            product_information.name=form.name.data
+            product_information.vendor_code=form.vendor_code.data
+            product_information.category=form.category.data
+            product_information.composition=form.composition.data
+            product_information.net_weight=form.net_weight.data
+            product_information.energy_value=form.energy_value.data
+            product_information.expiration_date=form.expiration_date.data
+            product_information.price=form.price.data
+            product_information.description=form.description.data
+            product_information.status=form.status.data
+
+            db.session.commit()
+
+            flash('Товар успешно обновлен!')
+            return redirect(url_for('admin.product_info', id=product_information.id))
+        else:
+            flash('Упс, а валидация то не пройдена!')
+    else:
+        form = ProductForm(obj=product_information)
+    return render_template('admin/product/update.html', form=form, id=product_information.id)
+
+
+@admin.route('/admin/order/<int:id>/delete')
+@login_required
+def order_delete(id):
+    obj = Product.query.get_or_404(id)
+
+    try:
+        db.session.delete(obj)
+        db.session.commit()
+        flash('Удаление прошло успешно!')
+    except:
+        flash('Упс, что-то пошло не так!')
+    return redirect(url_for('admin.product'))
