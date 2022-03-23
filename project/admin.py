@@ -188,18 +188,23 @@ def order():
 def order_create():
     if request.method == 'POST':
         form = OrderForm(request.form)
+        form.user.choices = [((obj.id, obj.full_name)) for obj in User.query.filter_by(is_staff=False)]
+        form.manager.choices = [((obj.id, obj.full_name)) for obj in User.query.filter_by(is_staff=True)]
+        print(request.form)
         if form.validate():
-            new_obj = Product(
-                name=form.name.data,
-                vendor_code=form.vendor_code.data,
-                category=form.category.data,
-                composition=form.composition.data,
-                net_weight=form.net_weight.data,
-                energy_value=form.energy_value.data,
-                expiration_date=form.expiration_date.data,
-                price=form.price.data,
-                description=form.description.data,
+            new_obj = Order(
+                date=form.date.data,
+                user_id=form.user.data,
+                full_name=form.full_name.data,
+                email=form.email.data,
+                phone=form.phone.data,
+                buy=form.buy.data,
+                delivery=form.delivery.data,
+                city=form.city.data,
+                department=form.department.data,
                 status=form.status.data,
+                manager_id=form.manager.data,
+                description=form.description.data,
             )
 
             db.session.add(new_obj)
@@ -220,45 +225,51 @@ def order_create():
 @login_required
 def order_info(id):
     data = {
-        'product': Product.query.filter_by(id=id).first_or_404()
+        'order': Order.query.filter_by(number=id).first_or_404()
     }
-    return render_template('admin/product/info.html', data=data)
+    return render_template('admin/order/info.html', data=data)
 
 
 @admin.route('/admin/order/<int:id>/update', methods=['POST', 'GET'])
 @login_required
 def order_update(id):
-    product_information = Product.query.filter_by(id=id).first_or_404()
+    obj= Order.query.filter_by(number=id).first_or_404()
 
     if request.method == 'POST':
-        form = ProductForm(request.form)
+        form = OrderForm(request.form)
+        form.user.choices = [((obj.id, obj.full_name)) for obj in User.query.filter_by(is_staff=False)]
+        form.manager.choices = [((obj.id, obj.full_name)) for obj in User.query.filter_by(is_staff=True)]
         if form.validate():
-            product_information.name=form.name.data
-            product_information.vendor_code=form.vendor_code.data
-            product_information.category=form.category.data
-            product_information.composition=form.composition.data
-            product_information.net_weight=form.net_weight.data
-            product_information.energy_value=form.energy_value.data
-            product_information.expiration_date=form.expiration_date.data
-            product_information.price=form.price.data
-            product_information.description=form.description.data
-            product_information.status=form.status.data
+            obj.date = form.date.data,
+            obj.user_id = form.user.data,
+            obj.full_name = form.full_name.data,
+            obj.email = form.email.data,
+            obj.phone = form.phone.data,
+            obj.buy = form.buy.data,
+            obj.delivery = form.delivery.data,
+            obj.city = form.city.data,
+            obj.department = form.department.data,
+            obj.status = form.status.data,
+            obj.manager_id = form.manager.data,
+            obj.description = form.description.data,
 
             db.session.commit()
 
-            flash('Товар успешно обновлен!')
-            return redirect(url_for('admin.product_info', id=product_information.id))
+            flash('Заказ успешно обновлен!')
+            return redirect(url_for('admin.order', id=obj.number))
         else:
             flash('Упс, а валидация то не пройдена!')
     else:
-        form = ProductForm(obj=product_information)
-    return render_template('admin/product/update.html', form=form, id=product_information.id)
+        form = OrderForm(obj=obj)
+        form.user.choices = [((obj.id, obj.full_name)) for obj in User.query.filter_by(is_staff=False)]
+        form.manager.choices = [((obj.id, obj.full_name)) for obj in User.query.filter_by(is_staff=True)]
+    return render_template('admin/order/update.html', form=form, id=obj.number)
 
 
 @admin.route('/admin/order/<int:id>/delete')
 @login_required
 def order_delete(id):
-    obj = Product.query.get_or_404(id)
+    obj = Order.query.get_or_404(id)
 
     try:
         db.session.delete(obj)
@@ -266,4 +277,4 @@ def order_delete(id):
         flash('Удаление прошло успешно!')
     except:
         flash('Упс, что-то пошло не так!')
-    return redirect(url_for('admin.product'))
+    return redirect(url_for('admin.order'))

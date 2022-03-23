@@ -10,17 +10,18 @@ $("document").ready(function() {
 
     MultiplicationInvoice()
     // Инициализация DataTable
-    FilterBase('#ProductTable', [1,4,5], [2,6], [0,3,7], undefined, undefined) // Дома
+    FilterBase('#OrderTable', [0], [1,5,6], [3,4,7], 2, undefined) // Заказы
+    FilterBase('#ProductTable', [1,4,5], [2,6], [0,3,7], undefined, undefined) // Продукты
 
-    FilterBase('#AccountTransactionTable', [0,5], [2,3,4,6], [7,8], 1, undefined ) // Касса
-    FilterBase('#InvoiceTable', [1,3,4,5], [2,6,7], [0,8,9], 3, undefined ) // Квитанции на оплату
-    FilterBase('#AccountTable', [0, 2], [1,3,4,5], [7], undefined, 6) // Лицевые счета
-    FilterBase('#FlatTable', [0], [1,2,3,4], [6], undefined, 5) // Квартиры
-    FilterUser('#UserTable', [0,1,2,3,5,6], [4,7,8], [9], undefined, undefined) // Владельцы квартир
-    FilterBase('#CounterTable', [2], [0,1,3], [4,5,6], undefined, undefined) // Показания счетчиков
-    FilterBase('#CounterListTable', [0,6], [1,4,5,7], [3,8,9], 2, undefined) // Показания счетчиков - инфо по квартире
-    FilterBase('#UserAdminTable', [1,3,4], [2,5], [0,6], undefined, undefined) // Пользователь - админ
-    FilterBase('#RequestTable', [0,3,4,6], [2,5,7,8], [9], 1, undefined) // Заявки мастера
+//    FilterBase('#AccountTransactionTable', [0,5], [2,3,4,6], [7,8], 1, undefined ) // Касса
+//    FilterBase('#InvoiceTable', [1,3,4,5], [2,6,7], [0,8,9], 3, undefined ) // Квитанции на оплату
+//    FilterBase('#AccountTable', [0, 2], [1,3,4,5], [7], undefined, 6) // Лицевые счета
+//    FilterBase('#FlatTable', [0], [1,2,3,4], [6], undefined, 5) // Квартиры
+//    FilterUser('#UserTable', [0,1,2,3,5,6], [4,7,8], [9], undefined, undefined) // Владельцы квартир
+//    FilterBase('#CounterTable', [2], [0,1,3], [4,5,6], undefined, undefined) // Показания счетчиков
+//    FilterBase('#CounterListTable', [0,6], [1,4,5,7], [3,8,9], 2, undefined) // Показания счетчиков - инфо по квартире
+//    FilterBase('#UserAdminTable', [1,3,4], [2,5], [0,6], undefined, undefined) // Пользователь - админ
+//    FilterBase('#RequestTable', [0,3,4,6], [2,5,7,8], [9], 1, undefined) // Заявки мастера
 
     // Фильтры личного кабинета
     FilterBase('#InvoiceUserCabinet', [], [2], [0,3], 1, undefined) // Заявки мастера

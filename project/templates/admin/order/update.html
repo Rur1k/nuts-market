@@ -1,11 +1,14 @@
 {% extends 'admin/base.html' %}
-{% block title %}Создание заказа{% endblock %}
-{% block page_name %}Создание заказа{% endblock %}
+{% block title %}Обновление заказа{% endblock %}
+{% block page_name %}Обновление заказа №{{ id }}{% endblock %}
 {% block mini_page_name %}
     <li>
         <a href="{{ url_for('admin.order') }}">Заказы</a>
     </li>
-    <li class="active">Создание</li>
+    <li>
+        <a href="{{ url_for('admin.order_info', id=id) }}">Заказ №{{ id }}</a>
+    </li>
+    <li class="active">Обновление</li>
 {% endblock %}
 
 {% block content %}
@@ -25,7 +28,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon"> № </div>
-                        <input class="form-control" value="После создания" readonly>
+                        <input class="form-control" value="{{id}}" readonly>
                     </div>
                 </div>
                 <span class="label-mid">от</span>
@@ -148,5 +151,4 @@
         </div>
     </div>
 </form>
-
 {% endblock %}

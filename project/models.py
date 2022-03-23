@@ -57,12 +57,6 @@ class User(UserMixin, db.Model):
     is_staff = db.Column(db.Boolean, default=False)
     avatar = db.Column(db.String(), nullable=True)
 
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return self.full_name
-
 
 # Order models
 class Order(db.Model):
@@ -88,8 +82,9 @@ class Order(db.Model):
     ]
 
     number = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.Date)
-    user = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    date = db.Column(db.Date, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    user = db.relationship('User', foreign_keys=[user_id])
     full_name = db.Column(db.String(255), nullable=True)
     email = db.Column(db.String(255), nullable=True)
     phone = db.Column(db.String(255), nullable=True)
@@ -98,6 +93,7 @@ class Order(db.Model):
     city = db.Column(db.String(255), nullable=True)
     department = db.Column(db.String(255), nullable=True)
     status = db.Column(ChoiceType(STATUS, impl=db.String()))
-    manager_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    manager_id= db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
+    manager = db.relationship('User', foreign_keys=[manager_id])
     description = db.Column(db.String(255), nullable=True)
     sum = db.Column(db.Float, default=0.0)
